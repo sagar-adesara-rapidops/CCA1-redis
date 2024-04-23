@@ -1,0 +1,109 @@
+# version: "3.9"
+# services:
+#   web:
+#     build: .
+#     ports:
+#       - "8000:5000"
+#     volumes:
+#       - .:/code
+#       - logvolume01:/var/log
+#     depends_on:
+#       - redis
+#   redis:
+#     image: redis
+# volumes:
+#   logvolume01: {}
+
+version: "3"
+services:
+  # cockroachdb-0:
+  #   image: cockroachdb/cockroach:v22.2.6
+  #   hostname: cockroachdb-0
+  #   restart: always
+  #   ports:
+  #     - 26257:26257
+  #     - 8080:8080
+  #   links:
+  #     - node-app
+  #   command: ["start", "--insecure", "--store=attrs-node-0", "--listen-addr=localhost:26257", "--http-addr=localhost:8080", "--join=cockroachdb-0,cockroachdb-1,cockroachdb-2"]
+
+  # cockroachdb-1:
+  #   image: cockroachdb/cockroach:v22.2.6
+  #   hostname: cockroachdb-1
+  #   restart: always
+  #   links:
+  #     - node-app
+  #   command: ["start", "--insecure", "--store=attrs-node-1", "--listen-addr=localhost:26258", "--http-addr=localhost:8081", "--join=cockroachdb-0,cockroachdb-1,cockroachdb-2"]
+
+  # cockroachdb-2:
+  #   image: cockroachdb/cockroach:v22.2.6
+  #   hostname: cockroachdb-2
+  #   restart: always
+  #   links:
+  #     - node-app
+  #   command: ["start", "--insecure", "--store=attrs-node-2", "--listen-addr=localhost:26259", "--http-addr=localhost:8082", "--join=cockroachdb-0, cockroachdb-1,cockroachdb-2"]
+
+  createDefaultFolders:
+    build: .
+    image: email-client
+    command: npm run createDefaultFolders
+    network_mode: "host"
+
+  createFetchFolders:
+    # build : .
+    image: email-client
+    command: npm run createFetchFolders
+    network_mode: "host"
+
+  createEmailDetailsFetch:
+    build: .
+    image: email-client
+    command: npm run createEmailDetailsFetch
+    network_mode: "host"
+
+  createEmailList:
+    # build : .
+    image: email-client
+    command: npm run createEmailList
+    network_mode: "host"
+
+  createEmailSend:
+    # build : .
+    image: email-client
+    command: npm run createEmailSend
+    network_mode: "host"
+
+  # creategooglefetchfolder:
+  #   # build : .
+  #   image: email-clientclient
+  #   command: npm run createGoogleFetchFolder
+  #   network_mode: "host"
+
+  node-app:
+    # build : .
+    image: email-client
+    command: npm run start
+    network_mode: "host"
+    # ports:
+    # - "3000:3000"
+    # networks:
+    # - cockroachdbnet
+    # environment:
+    # - DATABASE_URL=postgresql://root@cockroachdb-0:26257/testdb?sslmode=disable
+
+  # services:
+  # cockroachdb:
+  # image: ubuntu
+  # command: sh -c "
+  # mkdir -p /usr/local/lib/cockroach &&
+  # cp -i cockroach-v22.2.8.linux-linux-amd64/lib/libgeos.so /usr/local/lib/cockroach/ &&
+  # cp -i cockroach-v22.2.8.linux-linux-amd64/lib/libgeos_c.so /usr/local/lib/cockroach/ &&
+  # docker run -d --name=roach1 --hostname=roach1 --net=roachnet -p 26257:26257 -p 8080:8080  -v "roach1:/cockroach/cockroach-data"  cockroachdb/cockroach:v22.2.8 start --insecure --join=roach1,roach2,roach3
+  # docker run -d --name=cockroachdb2 --hostname=cockroachdb2 --net=cockroachdbnet  -v "cockroachdb2:/cockroach/cockroach-data"  cockroachdb/cockroach:v22.2.8 start --insecure --join=cockroachdb1,cockroachdb2,cockroachdb3 ;
+  # docker run -d --name=cockroachdb3 --hostname=cockroachdb3 --net=cockroachdbnet  -v "cockroachdb3:/cockroach/cockroach-data"  cockroachdb/cockroach:v22.2.8 start --insecure --join=cockroachdb1,cockroachdb2,cockroachdb3
+  # docker exec -it cockroachdb1 ./cockroach init --insecure &&
+  # docker exec -it cockroachdb1 ./cockroach sql --insecure "
+  # docker pull cockroachdb/cockroach
+  # node:
+  # image: email-client
+  # command: gnome-terminal -e node;gnome-terminal -e node

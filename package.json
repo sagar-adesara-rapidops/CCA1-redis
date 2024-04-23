@@ -1,0 +1,38 @@
+{
+  "name": "email-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "createDefaultFolders": "node src/handlers/create-default-folders-handler.js",
+    "createFetchFolders": "node src/handlers/fetch-folders-from-provider.js",
+    "createEmailDetailsFetch": "node src/handlers/email-details-fetch-handler.js",
+    "createEmailList": "node src/handlers/email-list-handler.js",
+    "createEmailSend": "node src/handlers/email-send.js"
+  },
+  "author": "sagar",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "base-64": "^1.0.0",
+    "chai": "^4.3.7",
+    "express": "^4.18.2",
+    "google-auth-library": "^8.7.0",
+    "googleapis": "^114.0.0",
+    "joi": "^17.8.3",
+    "kafkajs": "^2.2.4",
+    "mysql2": "^3.1.2",
+    "pg": "^8.10.0",
+    "redis": "^4.6.6",
+    "sequelize": "^6.29.0",
+    "sequelize-cockroachdb": "^6.0.5",
+    "sinon": "^15.0.2",
+    "umzug": "^3.2.1"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^9.0.1",
+    "sequelize-cli": "^6.6.0"
+  }
+}
